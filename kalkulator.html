@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibad Web App - Kalkulator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            position: relative;
+            padding-bottom: 60px; /* Tinggi footer */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px; /* Mengurangi ukuran font */
+            text-transform: uppercase; /* Mengubah ke huruf kapital */
+        }
+        header p {
+            margin: 0;
+            font-size: 18px;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        main {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .calculator {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Mengatur posisi untuk ikon home */
+        }
+
+        #display {
+            width: calc(100% - 20px); /* Ukuran lebar kalkulator */
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1.5rem;
+            text-align: right;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        button:active {
+            background-color: #222;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed; /* Mengatur posisi footer */
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff; /* Warna ikon home */
+            text-decoration: none;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #99ccff; /* Warna ikon home ketika dihover */
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>IBAD WEB APP</h1> <!-- Mengubah menjadi huruf kapital -->
+            <p>Kalkulator</p> <!-- Nama fitur dengan ukuran lebih kecil -->
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="calculator">
+                <input type="text" id="display" readonly>
+                <div class="buttons">
+                    <button onclick="appendNumber('7')">7</button>
+                    <button onclick="appendNumber('8')">8</button>
+                    <button onclick="appendNumber('9')">9</button>
+                    <button onclick="clearDisplay()">C</button>
+                    <button onclick="appendNumber('4')">4</button>
+                    <button onclick="appendNumber('5')">5</button>
+                    <button onclick="appendNumber('6')">6</button>
+                    <button onclick="appendOperator('+')">+</button>
+                    <button onclick="appendNumber('1')">1</button>
+                    <button onclick="appendNumber('2')">2</button>
+                    <button onclick="appendNumber('3')">3</button>
+                    <button onclick="appendOperator('-')">-</button>
+                    <button onclick="appendNumber('0')">0</button>
+                    <button onclick="appendOperator('*')">x</button>
+                    <button onclick="appendOperator('/')">/</button>
+                    <button onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="index.html"> <i class="fas fa-home"></i> </a>
+            <p>&copy; 2024 Ibad Web App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentNumber = '';
+        let operator = '';
+        let firstNumber = '';
+        let secondNumber = '';
+
+        function appendNumber(number) {
+            currentNumber += number;
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (currentNumber === '') return;
+            if (operator !== '') {
+                calculate();
+            }
+            operator = op;
+            firstNumber = currentNumber;
+            currentNumber = '';
+        }
+
+        function calculate() {
+            if (currentNumber === '' || firstNumber === '') return;
+            secondNumber = currentNumber;
+            let result;
+            switch (operator) {
+                case '+':
+                    result = parseFloat(firstNumber) + parseFloat(secondNumber);
+                    break;
+                case '-':
+                    result = parseFloat(firstNumber) - parseFloat(secondNumber);
+                    break;
+                case '*':
+                    result = parseFloat(firstNumber) * parseFloat(secondNumber);
+                    break;
+                case '/':
+                    result = parseFloat(firstNumber) / parseFloat(secondNumber);
+                    break;
+                default:
+                    return;
+            }
+            currentNumber = result.toString();
+            firstNumber = '';
+            secondNumber = '';
+            operator = '';
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentNumber = '';
+            operator = '';
+            firstNumber = '';
+            secondNumber = '';
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById('display').value = currentNumber;
+        }
+    </script>
+</body>
+</html>
