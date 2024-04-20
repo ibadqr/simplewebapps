@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibad Web App - Hitung Usia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            position: relative;
+            padding-bottom: 60px; /* Tinggi footer */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 18px;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        main {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .calculator {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Mengatur posisi untuk ikon home */
+        }
+
+        #birthdate, #name {
+            width: calc(100% - 20px); /* Ukuran lebar input */
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #calculate {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #calculate:hover {
+            background-color: #555;
+        }
+
+        #calculate:active {
+            background-color: #222;
+        }
+
+        #result {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        #result ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #result li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed; /* Mengatur posisi footer */
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff; /* Warna ikon home */
+            text-decoration: none;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #99ccff; /* Warna ikon home ketika dihover */
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>IBAD WEB APP</h1>
+            <p>Hitung Usia</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="calculator">
+                <form id="ageForm" onsubmit="return calculateAge()">
+                    <input type="text" id="name" placeholder="Nama Anda" required>
+                    <input type="date" id="birthdate" max="9999-12-31" required>
+                    <button id="calculate" type="submit">Hitung Usia</button>
+                </form>
+                <div id="result"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <p>&copy; 2024 Ibad Web App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateAge() {
+            let name = document.getElementById('name').value;
+            let birthdate = document.getElementById('birthdate').value;
+            
+            // Check if inputs are not empty
+            if (name === '' || birthdate === '') {
+                alert('Nama dan tanggal lahir harus diisi');
+                return false;
+            }
+
+            let birthYear = new Date(birthdate).getFullYear();
+            let birthMonth = new Date(birthdate).getMonth();
+            let birthDay = new Date(birthdate).getDate();
+
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear();
+            let currentMonth = currentDate.getMonth();
+            let currentDay = currentDate.getDate();
+
+            let years = currentYear - birthYear;
+            let months = currentMonth - birthMonth;
+            let days = currentDay - birthDay;
+
+            if (months < 0 || (months === 0 && days < 0)) {
+                years--;
+                months += 12;
+            }
+
+            let result = document.getElementById('result');
+            result.innerHTML = `<ul><li>Nama: ${name}</li><li>Usia: ${years} tahun, ${months} bulan, ${days} hari</li></ul>`;
+
+            // Prevent form submission
+            return false;
+        }
+    </script>
+</body>
+</html>
