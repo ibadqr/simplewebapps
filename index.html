@@ -1,187 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web App Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <style>
-        /* CSS Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #343a40;
-            position: relative;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Web Apps</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom styles */
+    /* Header */
+    .header {
+      background-color: #343a40;
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+      margin-bottom: 50px; /* Add margin bottom to header */
+      margin-top: 80px; /* Add margin top to header */
+    }
 
-        header {
-            background-color: #212529;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
+    .header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
 
-        main {
-            padding: 20px;
-        }
+    .header p {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
 
-        .apps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
+    /* Content */
+    .content {
+      padding: 20px;
+      padding-top: 0; /* Remove top padding to avoid overlap */
+      margin-bottom: 50px; /* Add margin bottom for footer */
+    }
 
-        .app {
-            width: 200px;
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+    /* Footer */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #343a40;
+      color: #fff;
+      padding: 5px 0;
+      text-align: center;
+    }
 
-        .app .icon {
-            font-size: 64px;
-            margin-bottom: 10px;
-        }
+    /* Product card */
+    .product-card {
+      margin-bottom: 30px;
+    }
 
-        .app h2 {
-            margin-top: 10px;
-            font-size: 18px;
-            color: #343a40;
-            text-transform: uppercase;
-        }
+    .product-card .card-img-top {
+      height: 200px; /* Adjust image height */
+      object-fit: cover;
+    }
 
-        .app p {
-            color: #6c757d;
-            margin-top: 8px;
-            font-size: 14px;
-        }
+    .product-card .card-title {
+      font-size: 18px;
+    }
 
-        .app a {
-            display: block;
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 10px;
-        }
+    .product-card .card-text {
+      font-size: 14px;
+    }
 
-        .app a:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            background-color: #212529;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-            clear: both;
-        }
-
-        /* Floating WhatsApp Button */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .whatsapp-button a {
-            display: block;
-            width: 60px;
-            height: 60px;
-            background-color: #25d366;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 60px;
-            color: #fff;
-            font-size: 24px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-button a:hover {
-            background-color: #128c7e;
-        }
-    </style>
+    .product-card .btn {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1 style="text-transform: uppercase;">Web App Store</h1>
-        <p>Koleksi Aplikasi Berbasis Web Sederhana Oleh <a href="https://github.com/ibadqr" target="_blank">Ibad QR</a></p>
-    </header>
-    
-    <main>
-        <section class="apps">
-            <!-- Calculator -->
-            <div class="app">
-                <span class="bi bi-calculator icon"></span>
-                <h2>Kalkulator</h2>
-                <p>Aplikasi kalkulator sederhana untuk melakukan operasi matematika dasar.</p>
-                <a href="kalkulator.html">Buka</a>
-            </div>
-            
-            <!-- Age Calculator -->
-            <div class="app">
-                <span class="bi bi-people icon"></span>
-                <h2>Hitung Usia</h2>
-                <p>Aplikasi untuk menghitung usia seseorang berdasarkan tanggal lahir.</p>
-                <a href="hitung_usia.html">Buka</a>
-            </div>
-            
-            <!-- Shopping List -->
-            <div class="app">
-                <span class="bi bi-cart icon"></span>
-                <h2>Catatan Belanja</h2>
-                <p>Aplikasi untuk mencatat daftar belanjaan agar lebih teratur dan efisien.</p>
-                <a href="catatan_belanja.html">Buka</a>
-            </div>
-            
-            <!-- Unknown Apps -->
-            <div class="app">
-                <span class="bi bi-gear icon"></span>
-                <h2>Unknown App</h2>
-                <p>Aplikasi ini sedang dalam proses pengembangan, akan segera hadir.</p>
-                <a href="#">Buka</a>
-            </div>
-
-            <!-- Unknown App 5 -->
-            <div class="app">
-                <span class="bi bi-gear icon"></span>
-                <h2>Unknown App</h2>
-                <p>Aplikasi ini sedang dalam proses pengembangan, akan segera hadir.</p>
-                <a href="#">Buka</a>
-            </div>
-            
-            <!-- Unknown App 6 -->
-            <div class="app">
-                <span class="bi bi-gear icon"></span>
-                <h2>Unknown App</h2>
-                <p>Aplikasi ini sedang dalam proses pengembangan, akan segera hadir.</p>
-                <a href="#">Buka</a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Web App Store. Hak Cipta Dilindungi.</p>
-    </footer>
-
-    <!-- Floating WhatsApp Button -->
-    <div class="whatsapp-button">
-        <a href="https://wa.me/6282120938936?text=Saya%20dari%20web%20app%20store,%20ingin%20bertanya%20kepada%20anda%3F" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/45px-WhatsApp.svg.png" alt="WhatsApp">
-        </a>
+  <!-- Modal -->
+  <div class="modal fade" id="nameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Jurnal Pengunjung</h5>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="visitorName" placeholder="Siapa nama anda?">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="saveName">Masuk</button>
+        </div>
+      </div>
     </div>
+  </div>
 
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">SIMPLE WEB APPS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-paper-plane"></i> Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-user-circle"></i> Profile</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Content -->
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="header">
+            <h1 id="greetingText">Koleksi web app sederhana oleh Ibad QR</h1>
+            <p>Sekarang anda bisa menggunakan semua layanan di aplikasi web kami secara gratis, Selamat Mencoba!</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card product-card mb-4">
+            <img src="hitung_usia.png" class="card-img-top" alt="Hitung Usia">
+            <div class="card-body">
+              <h5 class="card-title">Hitung Usia</h5>
+              <p class="card-text">Aplikasi untuk menghitung usia seseorang berdasarkan tanggal lahir.</p>
+             <a href="hitung_usia.html"><button type="button" class="btn btn-primary">Buka Aplikasi</button></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card product-card mb-4">
+            <img src="catatan_belanja.png" class="card-img-top" alt="Catatan Belanja">
+            <div class="card-body">
+              <h5 class="card-title">Catatan Belanja</h5>
+              <p class="card-text">Aplikasi untuk mencatat daftar belanjaan dengan aksi hapus dan edit.</p>
+              <a href="catatan_belanja.html"><button type="button" class="btn btn-primary">Buka Aplikasi</button></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card product-card mb-4">
+            <img src="kalkulator.png" class="card-img-top" alt="Kalkulator">
+            <div class="card-body">
+              <h5 class="card-title">Kalkulator</h5>
+              <p class="card-text">Aplikasi kalkulator sederhana untuk operasi hitung matematika dasar.</p>
+              <a href="kalkulator.html"><button type="button" class="btn btn-primary">Buka Aplikasi</button></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card product-card mb-4">
+            <img src="proses.png" class="card-img-top" alt="Unknown App">
+            <div class="card-body">
+              <h5 class="card-title">Unknown App</h5>
+              <p class="card-text">Aplikasi ini sedang dalam proses pengembangan, akan segera hadir.</p>
+             <a href="#"><button type="button" class="btn btn-primary">Buka Aplikasi</button></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card product-card mb-4">
+            <img src="proses.png" class="card-img-top" alt="Unknown App">
+            <div class="card-body">
+              <h5 class="card-title">Unknown App</h5>
+              <p class="card-text">Aplikasi ini sedang dalam proses pengembangan, akan segera hadir.</p>
+             <a href="#"><button type="button" class="btn btn-primary">Buka Aplikasi</button></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card product-card mb-4">
+            <img src="proses.png" class="card-img-top" alt="Unknown App">
+            <div class="card-body">
+              <h5 class="card-title">Unknown App</h5>
+              <p class="card-text">Aplikasi ini sedang dalam proses pengembangan, akan segera hadir.</p>
+             <a href="#"><button type="button" class="btn btn-primary">Buka Aplikasi</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2024 Simple Web Apps. All rights reserved.</p>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('#nameModal').modal({ backdrop: 'static', keyboard: false });
+
+      $('#saveName').click(function(){
+        var visitorName = $('#visitorName').val();
+        if(visitorName !== '') {
+          $('#greetingText').text('Selamat Datang , ' + visitorName + ' 🤗');
+          $('#nameModal').modal('hide');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
