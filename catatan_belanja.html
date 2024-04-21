@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibad Web App - Catatan Belanja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            position: relative;
+            padding-bottom: 60px; /* Tinggi footer */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 18px;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        main {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+        }
+
+        td.actions {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        #total {
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed; /* Mengatur posisi footer */
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff; /* Warna ikon home */
+            text-decoration: none;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #99ccff; /* Warna ikon home ketika dihover */
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 5px 0 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 5px;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .add-button-container {
+            margin-bottom: 20px;
+        }
+
+        .add-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .add-button i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>IBAD WEB APP</h1>
+            <p>Catatan Belanja</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="add-button-container">
+                <button class="btn btn-primary add-button" onclick="openAddItemModal()"><i class="fas fa-plus"></i> Tambah Belanja</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Jumlah</th>
+                        <th class="actions">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="itemList">
+                    <!-- Daftar item belanja akan dimasukkan di sini -->
+                </tbody>
+            </table>
+            <div id="total">Total Belanja: Rp 0</div>
+        </div>
+    </main>
+
+    <!-- Modal untuk menambah item belanja -->
+    <div id="addItemModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddItemModal()">&times;</span>
+            <h2>Tambah Belanja</h2>
+            <input type="text" id="itemName" placeholder="Nama Item" required>
+            <input type="number" id="itemQuantity" placeholder="Jumlah" required>
+            <button class="btn btn-primary" onclick="addItem()">Tambah</button>
+        </div>
+    </div>
+
+    <!-- Modal konfirmasi penghapusan item -->
+    <div id="confirmDeleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeConfirmDeleteModal()">&times;</span>
+            <h2>Konfirmasi Penghapusan</h2>
+            <p>Apakah Anda yakin ingin menghapus item ini?</p>
+            <button class="btn btn-danger" onclick="deleteItem()">Hapus</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <p>&copy; 2024 Ibad Web App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let itemList = []; // Array untuk menyimpan item belanja
+        let total = 0; // Total belanja
+
+        // Fungsi untuk membuka modal tambah item belanja
+        function openAddItemModal() {
+            document.getElementById('addItemModal').style.display = 'block';
+        }
+
+        // Fungsi untuk menutup modal tambah item belanja
+        function closeAddItemModal() {
+            document.getElementById('addItemModal').style.display = 'none';
+        }
+
+        // Fungsi untuk menambah item belanja
+        function addItem() {
+            let itemName = document.getElementById('itemName').value;
+            let itemQuantity = document.getElementById('itemQuantity').value;
+            if (itemName && itemQuantity) {
+                itemList.push({ item: itemName, quantity: itemQuantity });
+                updateList(); // Memperbarui tampilan daftar item belanja
+                closeAddItemModal(); // Menutup modal
+            } else {
+                alert('Nama item dan jumlah harus diisi');
+            }
+        }
+
+        // Fungsi untuk memperbarui tampilan daftar item belanja
+        function updateList() {
+            let listHTML = '';
+            total = 0; // Mengatur total belanja ke 0 setiap kali memperbarui daftar
+            itemList.forEach((item, index) => {
+                listHTML += `
+                    <tr>
+                        <td>${item.item}</td>
+                        <td>${item.quantity}</td>
+                        <td class="actions">
+                            <button class="btn btn-primary" onclick="editItem(${index})"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger" onclick="openConfirmDeleteModal(${index})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+                total += parseInt(item.quantity);
+            });
+            document.getElementById('itemList').innerHTML = listHTML;
+            document.getElementById('total').innerText = `Total Belanja: Rp ${total.toLocaleString()}`; // Mengubah total belanja ke rupiah dengan format angka
+        }
+
+        // Fungsi untuk membuka modal konfirmasi penghapusan item
+        function openConfirmDeleteModal(index) {
+            document.getElementById('confirmDeleteModal').style.display = 'block';
+            document.getElementById('confirmDeleteModal').dataset.index = index;
+        }
+
+        // Fungsi untuk menutup modal konfirmasi penghapusan item
+        function closeConfirmDeleteModal() {
+            document.getElementById('confirmDeleteModal').style.display = 'none';
+        }
+
+        // Fungsi untuk menghapus item belanja
+        function deleteItem() {
+            let index = document.getElementById('confirmDeleteModal').dataset.index;
+            itemList.splice(index, 1);
+            updateList(); // Memperbarui tampilan daftar item belanja
+            closeConfirmDeleteModal(); // Menutup modal
+        }
+
+        // Fungsi untuk mengedit item belanja
+        function editItem(index) {
+            let newName = prompt('Masukkan nama baru:');
+            let newQuantity = prompt('Masukkan jumlah baru:');
+            if (newName && newQuantity) {
+                itemList[index].item = newName;
+                itemList[index].quantity = newQuantity;
+                updateList(); // Memperbarui tampilan daftar item belanja
+            }
+        }
+
+        // Memperbarui tampilan daftar item belanja saat halaman dimuat
+        updateList();
+    </script>
+</body>
+</html>
