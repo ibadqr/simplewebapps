@@ -193,7 +193,7 @@
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Jumlah</th>
+                        <th>Harga</th>
                         <th class="actions">Aksi</th>
                     </tr>
                 </thead>
@@ -211,7 +211,7 @@
             <span class="close" onclick="closeAddItemModal()">&times;</span>
             <h2>Tambah Belanja</h2>
             <input type="text" id="itemName" placeholder="Nama Item" required>
-            <input type="number" id="itemQuantity" placeholder="Jumlah" required>
+            <input type="number" id="itemQuantity" placeholder="Harga" required>
             <button class="btn btn-primary" onclick="addItem()">Tambah</button>
         </div>
     </div>
@@ -302,7 +302,7 @@
         // Fungsi untuk mengedit item belanja
         function editItem(index) {
             let newName = prompt('Masukkan nama baru:');
-            let newQuantity = prompt('Masukkan jumlah baru:');
+            let newQuantity = prompt('Masukkan harga baru:');
             if (newName && newQuantity) {
                 itemList[index].item = newName;
                 itemList[index].quantity = newQuantity;
