@@ -1,1 +1,2 @@
-# simplewebapps
+# Simple WebApps
+Kumpulan aplikasi sederhana berbasis web yang mungkin bisa bermanfaat oleh semua, Thanks...
