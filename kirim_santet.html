@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Kirim Santet</title>
+<style>
+  /* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1b1b1b; /* Warna latar belakang utama gelap */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #e0e0e0; /* Teks berwarna cerah */
+    background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png'); /* Menambahkan tekstur */
+}
+
+.container {
+    background-color: #333; /* Warna container gelap */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 28px;
+    color: #e0e0e0; /* Warna teks lebih cerah */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #b3b3b3;
+    font-size: 14px;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #e0e0e0;
+    background-color: #222; /* Warna input gelap */
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    border-color: #2196f3;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #135ba1;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Warna gelap dan kabur */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #444; /* Warna modal gelap */
+    margin: auto;
+    padding: 30px; /* Perbesar padding */
+    border: 1px solid #888;
+    width: 85%; /* Perbesar modal */
+    max-width: 600px; /* Ukuran maksimum modal */
+    border-radius: 10px;
+    text-align: center;
+    color: #e0e0e0;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal img {
+    width: 120px; /* Perbesar ukuran foto */
+    height: 120px;
+    border-radius: 50%;
+    margin: 15px auto;
+    display: block;
+    border: 4px solid #2196f3; /* Tambahkan bingkai menarik pada foto */
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.5);
+}
+
+.modal .result-text {
+    font-size: 18px; /* Perbesar ukuran teks */
+    margin-top: 10px;
+}
+
+.modal .success {
+    font-size: 22px; /* Perbesar ukuran teks keterangan */
+    color: #4caf50; /* Warna hijau untuk berhasil */
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.modal .failure {
+    font-size: 22px; /* Perbesar ukuran teks keterangan */
+    color: #f44336; /* Warna merah untuk gagal */
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 20px;
+    }
+
+    .modal img {
+        width: 100px;
+        height: 100px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 5px;
+    font-size: 0.7rem;
+    background-color: #333;
+    color: #e0e0e0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #aaffdf
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aplikasi Kirim Santet</h1>
+        <form id="santetForm">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap Target:</label>
+                <input type="text" id="nama" name="nama" required>
+            </div>
+            <div class="form-group">
+                <label for="foto">Foto Target:</label>
+                <input type="file" id="foto" name="foto" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="tanggalLahir">Tanggal Lahir Target:</label>
+                <input type="date" id="tanggalLahir" name="tanggalLahir" required>
+            </div>
+            <div class="form-group">
+                <label for="santet">Muatan Santet:</label>
+                <select id="santet" name="santet" required>
+                    <option value="">Pilih muatan</option>
+    <option value="Serpihan kaca">Serpihan Kaca</option>
+    <option value="Paku karatan">Paku Karatan</option>
+    <option value="Jarum jahit">Jarum Jahit</option>
+    <option value="Serabut kelapa">Serabut Kelapa</option>
+    <option value="Koin kuno">Koin Kuno</option>
+    <option value="Batu kerikil">Batu Kerikil</option>
+    <option value="Pecahan tulang">Pecahan Tulang</option>
+    <option value="Rambut manusia">Rambut Manusia</option>
+    <option value="Kuku jari">Kuku Jari</option>
+    <option value="Pasir pantai">Pasir Pantai</option>
+    <option value="Sisik ular">Sisik Ular</option>
+    <option value="Serpihan besi">Serpihan Besi</option>
+    <option value="Serat asbes">Serat Asbes</option>
+    <option value="Kelabang kering">Kelabang Kering</option>
+    <option value="Gigi serigala">Gigi Serigala</option>
+    <option value="Duri landak">Duri Landak</option>
+    <option value="Bulu burung hantu">Bulu Burung Hantu</option>
+    <option value="Sayap kelelawar">Sayap Kelelawar</option>
+    <option value="Biji kopi hitam">Biji Kopi Hitam</option>
+    <option value="Kulit ular">Kulit Ular</option>
+    <option value="Serbuk gergaji">Serbuk Gergaji</option>
+    <option value="Bulu tikus">Bulu Tikus</option>
+    <option value="Abu rokok">Abu Rokok</option>
+    <option value="Batu akik">Batu Akik</option>
+    <option value="Sisa tulang belulang">Sisa Tulang Belulang</option>
+    <option value="Pecahan keramik">Pecahan Keramik</option>
+    <option value="Kawat berduri">Kawat Berduri</option>
+    <option value="Serbuk batu bata">Serbuk Batu Bata</option>
+    <option value="Pasir kaca">Pasir Kaca</option>
+    <option value="Serpihan kayu">Serpihan Kayu</option>
+    <option value="Kepala ikan">Kepala Ikan</option>
+    <option value="Serabut nanas">Serabut Nanas</option>
+    <option value="Kulit jeruk kering">Kulit Jeruk Kering</option>
+    <option value="Biji timah">Bijih Timah</option>
+    <option value="Serpihan kerang">Serpihan Kerang</option>
+    <option value="Potongan kain kafan">Potongan Kain Kafan</option>
+    <option value="Rambut anjing">Rambut Anjing</option>
+    <option value="Tulang jari">Tulang Jari</option>
+    <option value="Kulit kentang">Kulit Kentang</option>
+    <option value="Duri mawar">Duri Mawar</option>
+    <option value="Bulu kucing">Bulu Kucing</option>
+    <option value="Kerang laut">Kerang Laut</option>
+    <option value="Serbuk lada">Serbuk Lada</option>
+    <option value="Paku kecil">Paku Kecil</option>
+    <option value="Garam kasar">Garam Kasar</option>
+    <option value="Kulit pisang kering">Kulit Pisang Kering</option>
+    <option value="Racun kalajengking">Racun Kalajengking</option>
+    <option value="Taring harimau">Taring Harimau</option>
+    <option value="Tanduk rusa">Tanduk Rusa</option>
+    <option value="Duri ikan">Duri Ikan</option>
+    <option value="Serbuk karbon">Serbuk Karbon</option>
+    <option value="Kulit bambu">Kulit Bambu</option>
+    <option value="Tulang ayam">Tulang Ayam</option>
+    <option value="Daun sirih">Daun Sirih</option>
+    <option value="Serbuk rempah">Serbuk Rempah</option>
+    <option value="Bulu kambing">Bulu Kambing</option>
+    <option value="Serpihan cangkang telur">Serpihan Cangkang Telur</option>
+    <option value="Debu jalanan">Debu Jalanan</option>
+    <option value="Tulang ikan">Tulang Ikan</option>
+    <option value="Serpihan marmer">Serpihan Marmer</option>
+    <option value="Debu batu">Debu Batu</option>
+    <option value="Bulu ayam">Bulu Ayam</option>
+    <option value="Abu gosokan">Abu Gosokan</option>
+    <option value="Batu sungai">Batu Sungai</option>
+    <option value="Kulit mangga kering">Kulit Mangga Kering</option>
+    <option value="Bulu babi laut">Bulu Babi Laut</option>
+    <option value="Serpihan batu bara">Serpihan Batu Bara</option>
+    <option value="Kulit buah manggis">Kulit Buah Manggis</option>
+    <option value="Tulang ular">Tulang Ular</option>
+    <option value="Duri kaktus">Duri Kaktus</option>
+    <option value="Serpihan genteng">Serpihan Genteng</option>
+    <option value="Pasir vulkanik">Pasir Vulkanik</option>
+    <option value="Pecahan kaca pembesar">Pecahan Kaca Pembesar</option>
+    <option value="Bulu burung hantu">Bulu Burung Hantu</option>
+    <option value="Kulit jangkrik">Kulit Jangkrik</option>
+    <option value="Serpihan logam">Serpihan Logam</option>
+    <option value="Gumpalan tinta">Gumpalan Tinta</option>
+    <option value="Bulu kuda">Bulu Kuda</option>
+    <option value="Tulang gigi">Tulang Gigi</option>
+    <option value="Batu kali">Batu Kali</option>
+    <option value="Kulit kapas">Kulit Kapas</option>
+    <option value="Pecahan tulang rawan">Pecahan Tulang Rawan</option>
+    <option value="Kulit jerami">Kulit Jerami</option>
+    <option value="Serat kayu jati">Serat Kayu Jati</option>
+    <option value="Paku baja">Paku Baja</option>
+    <option value="Serat bambu">Serat Bambu</option>
+    <option value="Rambut putih">Rambut Putih</option>
+    <option value="Serpihan batu koral">Serpihan Batu Koral</option>
+    <option value="Abu kremasi">Abu Kremasi</option>
+    <option value="Pecahan keramik antik">Pecahan Keramik Antik</option>
+    <option value="Serpihan tulang manusia">Serpihan Tulang Manusia</option>
+    <option value="Serpihan batu akik">Serpihan Batu Akik</option>
+    <option value="Paku kuburan">Paku Kuburan</option>
+    <option value="Serpihan batuan karang">Serpihan Batuan Karang</option>
+                </select>
+            </div>
+            <button type="submit" id="kirimSantet" disabled>Kirim Santet</button>
+        </form>
+    </div>
+
+    <!-- Modal untuk menampilkan hasil santet -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Hasil Pengiriman Santet</h2>
+            <img id="hasilFoto" src="" alt="Foto Diri">
+            <p id="hasilNama"></p>
+            <p id="hasilTanggalLahir"></p>
+            <p id="hasilSantet"></p>
+            <h3 style="font-style:italic;" id="hasilPesan"></h3>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Aplikasi Kirim Santet v1.0 | Developed by <a href="https://instagram.com/ibad.qr/">Ibad QR</a>.</p>
+    </footer>
+    <script>
+      // script.js
+document.getElementById('santetForm').addEventListener('input', function() {
+    const nama = document.getElementById('nama').value;
+    const foto = document.getElementById('foto').value;
+    const tanggalLahir = document.getElementById('tanggalLahir').value;
+    const santet = document.getElementById('santet').value;
+    const kirimSantet = document.getElementById('kirimSantet');
+
+    if (nama && foto && tanggalLahir && santet) {
+        kirimSantet.disabled = false;
+    } else {
+        kirimSantet.disabled = true;
+    }
+});
+
+document.getElementById('santetForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Ambil data dari input
+    const nama = document.getElementById('nama').value;
+    const fotoFile = document.getElementById('foto').files[0];
+    const tanggalLahir = document.getElementById('tanggalLahir').value;
+    const santet = document.getElementById('santet').value;
+
+    // Simulasi hasil pengiriman santet
+    const hasilSantet = Math.random() > 0.5 ? "Santet berhasil dikirim!" : "Santet gagal terkirim karena ada penghalang/pelindung!";
+
+    // Tampilkan data dalam modal
+    document.getElementById('hasilNama').textContent = `Nama: ${nama}`;
+    document.getElementById('hasilTanggalLahir').textContent = `Tanggal Lahir: ${tanggalLahir}`;
+    document.getElementById('hasilSantet').textContent = `Muatan
+     Santet: ${santet}`;
+    document.getElementById('hasilPesan').textContent = hasilSantet;
+
+    // Tampilkan foto yang diunggah
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('hasilFoto').src = e.target.result;
+    };
+    reader.readAsDataURL(fotoFile);
+
+    // Tampilkan modal
+    document.getElementById('modal').style.display = 'flex';
+
+    // Reset form
+    document.getElementById('santetForm').reset();
+    document.getElementById('kirimSantet').disabled = true;
+});
+
+// Tutup modal saat tombol close diklik
+document.getElementById('closeModal').onclick = function() {
+    document.getElementById('modal').style.display = 'none';
+};
+
+// Tutup modal saat user klik di luar konten modal
+window.onclick = function(event) {
+    if (event.target === document.getElementById('modal')) {
+        document.getElementById('modal').style.display = 'none';
+    }
+};
+    </script>
+</body>
+</html>
